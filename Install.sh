@@ -1,6 +1,9 @@
 install()
 {
-	cp
+	cp -rvf data /var/www/html/
+	cp -rvf libs /var/www/html/
+	cp -rvf rumtime /var/www/html/
+	cp -rvf vj_root/* /var/www/html/alxwvj/
 }
 
 help()
