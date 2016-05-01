@@ -1,9 +1,15 @@
+#!/bin/bash
+
 install()
 {
-	cp -rvf data /var/www/html/
-	cp -rvf libs /var/www/html/
-	cp -rvf rumtime /var/www/html/
+	mkdir -p /home/AJC
+	chmod -R 777 /home/AJC
+	cp -rvf data /home/AJC/
+	cp -rvf ajcserver /home/AJC/
+	cp -rvf libs /home/AJC/
+	cp -rvf runtime /home/AJC/
 	cp -rvf vj_root/* /var/www/html/alxwvj/
+	
 }
 
 help()
@@ -11,7 +17,11 @@ help()
 		echo 'AJC (Alxwvj judge core) module for Alxwvj'
 		echo 'Create by SpringHack'
 		echo 'https://github.com/springhack/alxwvj_judge_core.git'
-		echo '==> "install.sh install" to install'
+		echo 'All data are located at /home/AJC'
+		echo '==> "sudo ./Install.sh install" to install'
+		echo '==> Before run you have to setup lo-runner'
+		echo '==> Edit "Config.Daemon.php", add "AJC" at "OJ_LIST", add prefix "" as AJC prefix !!!'
+		echo '==> "cd /home/AJC/ajcserver && ./start.sh" to run'
 }
 
 $1

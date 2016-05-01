@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-04-30 14:27:21
+        Last modified: 2016-05-01 14:46:54
         Filename: AJC_DataPoster.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -49,7 +49,7 @@
 					'oj' => 'AJC',
 					'oj_u' => $user,
 					'oj_p' => $pass,
-					'code' => $code,
+					'code' => (!get_magic_quotes_gpc())?addslashes($code):$code,
 					'contest' => $cid
 				))->insert("Record");
 			$_SESSION['last_id'] = $rid;	
