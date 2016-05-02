@@ -6,7 +6,6 @@ install()
 	cp -rvf data /home/AJC/
 	cp -rvf ajcserver /home/AJC/
 	cp -rvf libs /home/AJC/
-	cp -rvf runtime /home/AJC/
 	cp -rvf vj_root/* /var/www/html/alxwvj/
 	chmod -R 777 /home/AJC
 }
@@ -18,8 +17,9 @@ help()
 		echo 'https://github.com/springhack/alxwvj_judge_core.git'
 		echo 'All data are located at /home/AJC'
 		echo '==> "sudo ./Install.sh install" to install'
-		echo '==> Before run you have to setup lo-runner'
+		echo '==> Before run you have to setup lo-runner and install python-mysqldb'
 		echo '==> Edit "Config.Daemon.php", add "AJC" at "OJ_LIST", add prefix "" as AJC prefix !!!'
+		echo '==> Edit "/home/AJC/ajcserver/config.py" change db config !!!'
 		echo '==> "cd /home/AJC/ajcserver && ./start.sh" to run'
 }
 

@@ -1,2 +1,12 @@
 # alxwvj_judge_core
-A judge core for alxwvj
+
+AJC (Alxwvj judge core) module for Alxwvj
+Create by SpringHack
+https://github.com/springhack/alxwvj_judge_core.git
+
+All data are located at /home/AJC
+==> "sudo ./Install.sh install" to install
+==> Before run you have to setup lo-runner and install python-mysqldb
+==> Edit "Config.Daemon.php", add "AJC" at "OJ_LIST", add prefix "" as AJC prefix !!!
+==> Edit "/home/AJC/ajcserver/config.py" change db config !!!
+==> "cd /home/AJC/ajcserver && ./start.sh" to run
