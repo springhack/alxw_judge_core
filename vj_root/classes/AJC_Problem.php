@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-02 16:24:52
+        Last modified: 2016-05-02 16:27:00
         Filename: AJC_Problem.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -17,7 +17,7 @@
 		{
 
 			//May need a config file
-			$this->data_dir = dirname(__FILE__).'/home/AJC/data/';
+			$this->data_dir = '/home/AJC/data/';
 			
 			$this->pro_info = array(
 				'title' => file_get_contents($this->data_dir.$id.'/title'),	
