@@ -3,13 +3,12 @@
 install()
 {
 	mkdir -p /home/AJC
-	chmod -R 777 /home/AJC
 	cp -rvf data /home/AJC/
 	cp -rvf ajcserver /home/AJC/
 	cp -rvf libs /home/AJC/
 	cp -rvf runtime /home/AJC/
 	cp -rvf vj_root/* /var/www/html/alxwvj/
-	
+	chmod -R 777 /home/AJC
 }
 
 help()
