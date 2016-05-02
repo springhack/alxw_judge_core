@@ -15,6 +15,8 @@ import time
 import config
 import lorun
 import threading
+import traceback
+import signal
 import MySQLdb
 from db import run_sql
 from Queue import Queue
@@ -54,7 +56,7 @@ def update_result(result):
         3:"Memory Limit Exceeded",
         4:"Wrong Answer",
         5:"Runtime Error",
-        6:"Output limit",
+        6:"Output Limit Error",
         7:"Compile Error",
         8:"Presentation Error",
         11:"System Error",
@@ -296,6 +298,11 @@ def compileCode(solution_id, language):
     }
     if language not in build_cmd.keys():
         return False
+    '''
+    command = Command("cd %s; %s" % (dir_work, build_cmd[language]))
+    status, out, err = command.run(timeout=5, shell=True)
+    print status, out, err
+    '''
     p = subprocess.Popen(
         build_cmd[language],
         shell=True,
@@ -303,7 +310,13 @@ def compileCode(solution_id, language):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         close_fds=True)
-    out, err = p.communicate()  # 获取编译错误信息
+    kill_proc = lambda p: p.kill()
+    timer = threading.Timer(5, kill_proc, [p])
+    try:
+        timer.start()
+        out, err = p.communicate()  # 获取编译错误信息
+    finally:
+        timer.cancel()
     '''
     err_txt_path = os.path.join(config.work_dir, str(solution_id), 'error.txt')
     f = file(err_txt_path, 'w')
@@ -314,7 +327,7 @@ def compileCode(solution_id, language):
     if p.returncode == 0:  # 返回值为0,编译成功
         return True
     '''
-    if os.system("cd %s && %s" % (dir_dir_workk, build_cmd[language]))== 0:  # 返回值为0,编译成功
+    if status == 0:
         return True
     '''
     update_compile_info(solution_id, err + out)  # 编译失败,更新题目的编译错误信息
