@@ -72,6 +72,8 @@ def judge(solution_id, problem_id, data_count, time_limit,
     if language in ["java", 'python2', 'python3', 'ruby', 'perl']:
         time_limit = time_limit * 2
         mem_limit = mem_limit * 2
+    time_limit = int(time_limit)
+    mem_limit = int(mem_limit)
     for i in range(data_count):
         ret = judge_one_mem_time(
             solution_id,

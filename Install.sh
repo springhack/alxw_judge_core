@@ -2,7 +2,7 @@
 
 install()
 {
-	mkdir -p /home/AJC
+	mkdir -p /home/AJC/rumtime
 	cp -rvf data /home/AJC/
 	cp -rvf ajcserver /home/AJC/
 	cp -rvf libs /home/AJC/
