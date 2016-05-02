@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
-"""
-为了服务器安全，隐藏部分sql语句。
-程序执行需要相关数据库和测试数据。
-"""
+
 import os
 import sys
 import shutil
@@ -170,12 +167,21 @@ def judge_one_mem_time(
         main_exe = shlex.split(cmd)
     else:
         main_exe = [os.path.join(config.work_dir, str(solution_id), 'main'), ]
+    # white_list = range(359)
+    # black_list = []
+    '''
+    仅限测试使用，需根据具体系统重写!!!!
+    '''
+    white_list = [0,1,2,3,4,5,6,9,10,11,12,21,33,45,59,85,91,122,125,158,192,197,231,243,252]
     runcfg = {
         'args': main_exe,
         'fd_in': input_data.fileno(),
         'fd_out': temp_out_data.fileno(),
         'timelimit': time_limit,  # in MS
         'memorylimit': mem_limit,  # in KB
+        'trace': True,
+        'calls': white_list,
+        'files': {}
     }
     low_level()
     rst = lorun.run(runcfg)
@@ -284,8 +290,8 @@ def compileCode(solution_id, language):
     language = language.lower()
     dir_work = os.path.join(config.work_dir, str(solution_id))
     build_cmd = {
-        "gcc": "gcc main.c -o main -Wall -lm -O2 -std=c99 -DONLINE_JUDGE",
-        "g++": "g++ main.cpp -O2 -Wall -lm -DONLINE_JUDGE -o main",
+        "gcc": "gcc main.c -o main --static -Wall -lm -O2 -std=c99 -DONLINE_JUDGE",
+        "g++": "g++ main.cpp -O2 -Wall --static -lm -DONLINE_JUDGE -o main",
         "java": "javac Main.java",
         "ruby": "reek main.rb",
         "perl": "perl -c main.pl",
