@@ -1,10 +1,13 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-02 16:27:00
-        Filename: AJC_Problem.php
+        Last modified: 2016-05-09 13:54:06
+        Filename: classes/AJC_Problem.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
 <?php
+
+	//define AJC root 
+	define('AJC_ROOT', '/home/AJC');
 
 	require_once(dirname(__FILE__)."/DataPoster.php");
 
@@ -17,7 +20,7 @@
 		{
 
 			//May need a config file
-			$this->data_dir = '/home/AJC/data/';
+			$this->data_dir = AJC_ROOT.'/data/';
 			
 			$this->pro_info = array(
 				'title' => file_get_contents($this->data_dir.$id.'/title'),	
