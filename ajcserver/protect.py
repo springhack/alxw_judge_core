@@ -223,19 +223,17 @@ def judge_result(problem_id, solution_id, data_num):
 
 
 def get_problem_limit(problem_id):
-    try:
-        time_path = os.path.join(
-            config.data_dir,
-            str(problem_id),
-            'time')
-        memory_path = os.path.join(
-            config.data_dir,
-            str(problem_id),
-            'memory')
-    except KeyError as e:
-        logging.error(e)
-        return False
-    return open(time_path, 'r').read(), open(memory_path, 'r').read()
+    select_sql = "select `time`,`memory` from `AJC_Problem` where `id`='%s'" % problem_id
+    dblock.acquire()
+    feh = run_sql(select_sql)
+    dblock.release()
+    if feh is not None:
+        try:
+            time_t,memory_t  = feh[0]
+        except:
+            logging.error("1 cannot get code of runid %s" % solution_id)
+            return False
+    return time_t,memory_t
 
 
 def run(problem_id, solution_id, language, data_count, user_id):
