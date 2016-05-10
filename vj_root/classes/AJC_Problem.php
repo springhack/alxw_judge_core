@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-09 20:54:45
+        Last modified: 2016-05-10 09:14:37
         Filename: AJC_Problem.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -36,6 +36,7 @@
 				if (is_numeric($k))
 					unset($this->pro_info[$k]);
 			unset($this->pro_info['id']);
+			unset($this->pro_info['time_s']);
 			return $this->pro_info;
 		}
 
