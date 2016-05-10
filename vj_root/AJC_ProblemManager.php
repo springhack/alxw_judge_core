@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-10 09:02:07
+        Last modified: 2016-05-10 13:00:19
         Filename: AJC_ProblemManager.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -43,7 +43,7 @@
 							'memory' => 'text',
 							'submissions' => 'text',
 							'accepted' => 'text',
-							'descriotion' => 'text',
+							'description' => 'text',
 							'input' => 'text',
 							'output' => 'text',
 							'sample_input' => 'text',

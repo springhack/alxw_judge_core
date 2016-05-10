@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-10 09:02:38
+        Last modified: 2016-05-10 13:00:36
         Filename: AJC_Insert.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -113,10 +113,10 @@
 				</tr>
 				<tr>
 					<td>
-						descriotion
+						description
 					</td>
 					<td>
-						<textarea id='t_1' name='descriotion' rows='10' cols='100'><?php if (isset($info)) echo $info['descriotion']; ?></textarea>
+						<textarea id='t_1' name='description' rows='10' cols='100'><?php if (isset($info)) echo $info['description']; ?></textarea>
 					</td>
 				</tr>
 				<tr>
