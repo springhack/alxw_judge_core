@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-10 08:27:45
+        Last modified: 2016-05-10 09:02:38
         Filename: AJC_Insert.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -32,7 +32,8 @@
 			$_POST['id'] = intval($num['max(cast(id as signed))']) + 1;
 			if (intval($_POST['id']) < 1000)
 				$_POST['id'] = 1000;
-			$_POST['time'] = time();	
+			$_POST['time_s'] = time();
+		}
 		if (!get_magic_quotes_gpc())
 			foreach ($_POST as $k => $v)
 				$_POST[$k] = addslashes($v);
@@ -179,10 +180,10 @@
 		</center>
 		<script language='javascript'>
 			(function (window, undefined) {
-
+			 
 				for (var i=1;i<=3;++i)
 					CKEDITOR.replace('t_' + i);
-
+			 
 			})(window);
 		</script>
 	</body>
