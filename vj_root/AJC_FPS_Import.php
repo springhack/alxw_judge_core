@@ -1,18 +1,23 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-10 22:16:07
+        Last modified: 2016-05-10 22:31:58
         Filename: AJC_FPS_Import.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
 <?php
+
+require_once('api.php');
+
+if (!$app->user->isLogin())
+	die('<center><a href=\'admin/status.php?action=login&url=../index.php\'>Please login or register first!</a></center>');
+if ($app->user->getPower() != 0)
+	die('<center><a href=\'admin/status.php?action=login&url=../index.php\'>Please login or register first!</a></center>');
 
 if (isset($_FILES['fps']))
 {
 
 	if ($_FILES['fps']['error'] != UPLOAD_ERR_OK)
 		die('<h2>Import error !</h2>');
-
-	require_once('api.php');
 
 	function mkdata($pid, $file, $node)
 	{

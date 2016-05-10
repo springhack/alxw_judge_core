@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-10 13:00:36
+        Last modified: 2016-05-10 22:31:43
         Filename: AJC_Insert.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
