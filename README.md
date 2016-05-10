@@ -10,6 +10,8 @@ Need to change syscalls table !!!
 
 Import Lo-runner to run this reop
 
+Import ckeditor as problwm editor
+
 All data are located at /home/AJC
 ==> "sudo ./Install.sh install" to install
 ==> Before run you have to setup lo-runner and install python-mysqldb
