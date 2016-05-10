@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-09 20:42:36
+        Last modified: 2016-05-10 08:22:40
         Filename: AJC_ProblemManager.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -49,10 +49,12 @@
 							'sample_input' => 'text',
 							'sample_output' => 'text',
 							'hint' => 'text',
-							'source' => 'text'
+							'source' => 'text',
+							'time' => 'text'
 						))->create("AJC_Problem");
 				}
 				$list = $db->from("AJC_Problem")->limit(10, $sstart)->order('desc', 'time')->select()->fetch_all();
+				echo $db->error();
 			?>
 			<a href='AJC_Insert.php?id=new'>添加问题</a><br />
 			<table>

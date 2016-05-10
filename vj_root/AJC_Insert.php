@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-09 20:59:09
+        Last modified: 2016-05-10 08:27:45
         Filename: AJC_Insert.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -32,7 +32,7 @@
 			$_POST['id'] = intval($num['max(cast(id as signed))']) + 1;
 			if (intval($_POST['id']) < 1000)
 				$_POST['id'] = 1000;
-		}
+			$_POST['time'] = time();	
 		if (!get_magic_quotes_gpc())
 			foreach ($_POST as $k => $v)
 				$_POST[$k] = addslashes($v);
@@ -64,6 +64,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>编辑题目</title>
+		<script language='javascript' src='ckeditor/ckeditor.js'></script>
 		<style>
 			td {
 				padding: 2px;
@@ -114,7 +115,7 @@
 						descriotion
 					</td>
 					<td>
-						<textarea name='descriotion' rows='10' cols='100'><?php if (isset($info)) echo $info['descriotion']; ?></textarea>
+						<textarea id='t_1' name='descriotion' rows='10' cols='100'><?php if (isset($info)) echo $info['descriotion']; ?></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -122,7 +123,7 @@
 						input
 					</td>
 					<td>
-						<textarea name='input' rows='10' cols='100'><?php if (isset($info)) echo $info['input']; ?></textarea>
+						<textarea id='t_2' name='input' rows='10' cols='100'><?php if (isset($info)) echo $info['input']; ?></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -130,7 +131,7 @@
 						output
 					</td>
 					<td>
-						<textarea name='output' rows='10' cols='100'><?php if (isset($info)) echo $info['output']; ?></textarea>
+						<textarea id='t_3' name='output' rows='10' cols='100'><?php if (isset($info)) echo $info['output']; ?></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -176,5 +177,13 @@
 			</table>
 			</form>
 		</center>
+		<script language='javascript'>
+			(function (window, undefined) {
+
+				for (var i=1;i<=3;++i)
+					CKEDITOR.replace('t_' + i);
+
+			})(window);
+		</script>
 	</body>
 </html>
