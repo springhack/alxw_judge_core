@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-10 22:31:58
+        Last modified: 2016-05-11 15:05:15
         Filename: AJC_FPS_Import.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -68,12 +68,12 @@ if (isset($_FILES['fps']))
 
         $time_limit = $searchNode->time_limit;
         $unit=getAttribute($searchNode,'time_limit','unit');
-        if($unit=='ms') $time_limit/=1000;
+        if($unit=='s') $time_limit*=1000;
 
         
         $memory_limit = getValue ( $searchNode, 'memory_limit' );
         $unit=getAttribute($searchNode,'memory_limit','unit');
-        if($unit=='kb') $memory_limit/=1024;
+        if($unit=='mb') $memory_limit*=1024;
 
         
         $description = getValue ( $searchNode, 'description' );

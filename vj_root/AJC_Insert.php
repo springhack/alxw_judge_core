@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-10 22:31:43
+        Last modified: 2016-05-11 15:12:49
         Filename: AJC_Insert.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -100,7 +100,7 @@
 						time
 					</td>
 					<td>
-						<input type='text' name='time' value='1000' <?php if (isset($info)) echo 'value=\''.$info['time'].'\''; ?> />MS
+						<input type='text' name='time' value='<?php if (isset($info)) echo $info['time']; else echo 1000; ?>' />MS
 					</td>
 				</tr>
 				<tr>
@@ -108,7 +108,7 @@
 						memory
 					</td>
 					<td>
-						<input type='text' name='memory' value='65535' <?php if (isset($info)) echo 'value=\''.$info['memory'].'\''; ?> />KB
+						<input type='text' name='memory' value='<?php if (isset($info)) echo $info['memory']; else echo 65536; ?>' />KB
 					</td>
 				</tr>
 				<tr>
@@ -164,7 +164,7 @@
 						hint
 					</td>
 					<td>
-						<input type='text' name='hint' value='none' <?php if (isset($info)) echo 'value=\''.$info['hint'].'\''; ?> />
+						<input type='text' name='hint' value='<?php if (isset($info)) echo $info['hint']; else echo 'none'; ?>' />
 					</td>
 				</tr>
 				<tr>
@@ -172,7 +172,7 @@
 						source
 					</td>
 					<td>
-						<input type='text' name='source' value='SpringHack' <?php if (isset($info)) echo 'value=\''.$info['source'].'\''; ?> />
+						<input type='text' name='source' value='<?php if (isset($info)) echo $info['source']; else echo 'SpringHack' ?>' />
 					</td>
 				</tr>
 			</table>
