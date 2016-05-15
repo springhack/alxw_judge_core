@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-15 16:17:33
+        Last modified: 2016-05-16 00:11:12
         Filename: AJC_ProblemManager.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -75,7 +75,7 @@
 				</tr>
 				<?php
 					for ($i=0;$i<count($list);++$i)
-						echo '<tr><td>'.$list[$i]['id'].'</td><td>'.$list[$i]['title'].'</td><td><a href="AJC_Insert.php?id='.$list[$i]['id'].'">编辑</a></td></tr>';
+						echo '<tr><td>'.$list[$i]['id'].'</td><td>'.$list[$i]['title'].'</td><td><a href="AJC_Insert.php?id='.$list[$i]['id'].'">编辑</a> | <a href="AJC_Data_Edit.php?op=home&folder='.$list[$i]['id'].'">数据</a></td></tr>';
 				?>
 			</table>
 			<script language="javascript" src="Widget/pageSwitcher/pageSwitcher.js"></script>
