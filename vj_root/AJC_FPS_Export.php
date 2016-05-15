@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-15 16:13:01
+        Last modified: 2016-05-15 16:33:32
         Filename: AJC_FPS_Export.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -45,7 +45,8 @@
 
 	function getHeader()
 	{
-		?><?xml version="1.0" encoding="UTF-8"?>
+		echo '<?xml version="1.0" encoding="UTF-8"?>';
+		?>
 	<fps version="1.1" url="http://code.google.com/p/freeproblemset/">
 		<generator name="ALXWVJ" url="https://github.com/springhack/alxwvj"/>
 <?php
