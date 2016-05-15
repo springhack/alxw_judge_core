@@ -1,6 +1,6 @@
 <?php /**
         Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-10 22:16:39
+        Last modified: 2016-05-15 16:17:33
         Filename: AJC_ProblemManager.php
         Description: Created by SpringHack using vim automatically.
 **/ ?>
@@ -58,7 +58,9 @@
 			?>
 			<a href='AJC_Insert.php?id=new'>添加问题</a>
 			&nbsp;&nbsp;|&nbsp;
-			<a href='AJC_FPS_Import.php'>导入问题</a><br />
+			<a href='AJC_FPS_Import.php'>导入问题</a>
+			&nbsp;&nbsp;|&nbsp;
+			<a href='AJC_FPS_Export.php'>导出问题</a><br />
 			<table>
 				<tr>
 					<td>
