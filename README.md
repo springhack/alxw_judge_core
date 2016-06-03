@@ -17,4 +17,4 @@ All data are located at /home/AJC
 ==> Before run you have to setup lo-runner and install python-mysqldb
 ==> Edit "Config.Daemon.php", add "AJC" at "OJ_LIST", add prefix "" as AJC prefix !!!
 ==> Edit "/home/AJC/ajcserver/config.py" change db config !!!
-==> "cd /home/AJC/ajcserver && ./start.sh" to run
+==> "sudo /etc/init.d/ajcd start" to run
