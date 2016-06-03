@@ -5,6 +5,7 @@ install()
 	mkdir -p /home/AJC/runtime
 	cp -rvf data /home/AJC/
 	cp -rvf ajcserver /home/AJC/
+	cp -rvf ajcserver/ajcd /etc/init.d/
 	cp -rvf libs /home/AJC/
 	cp -rvf vj_root/* /var/www/html/alxwvj/
 	chmod -R 777 /home/AJC

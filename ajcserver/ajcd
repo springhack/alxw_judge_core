@@ -1,0 +1,97 @@
+#! /bin/sh
+# chkconfig: 2345 55 25
+# Description: Startup script for alxwvj judge core on Debian. Place in /etc/init.d and
+# run 'update-rc.d -f ajcd defaults', or use the appropriate command on your
+# distro. For CentOS/Redhat run: 'chkconfig --add ajcd'
+
+### BEGIN INIT INFO
+# Provides:          ajcd
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the ajc daemon
+# Description:       starts alxwvj judge core daemon using start-stop-daemon
+### END INIT INFO
+
+# Author:   SpringHack
+# website:  http://blog.90its.cn/
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+NAME=ajcd
+NGINX_BIN=/home/AJC/ajcserver/$NAME.py
+PID=`ps axu | grep ^nobody.*ajcd.py | awk -F ' ' '{print $2}'`
+
+
+case "$1" in
+    start)
+        echo -n "Starting $NAME... "
+
+	if [ "${PID}xx" != "xx" ];
+	then
+		echo "$NAME is running."
+		exit 1
+	fi
+
+        python $NGINX_BIN &
+
+	sleep 2
+
+	PID=`ps axu | grep ^nobody.*ajcd.py | awk -F ' ' '{print $2}'`
+
+	if [ "${PID}xx" != "xx" ];
+	then
+		echo "done"
+	else
+		echo "failed"
+		exit 1
+	fi
+        ;;
+
+    stop)
+        echo -n "Stoping $NAME... "
+
+	if [ "${PID}xx" != "xx" ];
+	then
+		sleep 0
+	else
+		echo "$NAME is not running."
+		exit 1
+	fi
+
+	kill -9 $PID 2>&1 1>/dev/null
+
+	PID=`ps axu | grep ^nobody.*ajcd.py | awk -F ' ' '{print $2}'`
+
+	if [ "${PID}xx" != "xx" ];
+	then
+		echo "failed"
+		exit 1
+	else
+		echo "done"
+	fi
+        ;;
+
+    status)
+	if [ "${PID}xx" != "xx" ];
+	then
+		echo "$NAME (pid $PID) is running..."
+		exit 1
+	else
+		echo "$NAME is stopped"
+		exit 0
+	fi
+        ;;
+
+    restart)
+        $0 stop
+        sleep 1
+        $0 start
+        ;;
+
+    *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+        ;;
+
+esac
