@@ -24,6 +24,14 @@ def low_level():
         os.setuid(int(os.popen("id -u %s" % "nobody").read()))
     except:
         pass
+
+def kill_proc(p):
+    try:
+        p.kill()
+        print 'after 5s ...'
+    except:
+        pass
+
 try:
     # 降低程序运行权限，防止恶意代码
     os.setuid(int(os.popen("id -u %s" % "nobody").read()))
@@ -316,7 +324,6 @@ def compileCode(solution_id, language):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         close_fds=True)
-    kill_proc = lambda p: p.kill()
     timer = threading.Timer(5, kill_proc, [p])
     try:
         timer.start()
