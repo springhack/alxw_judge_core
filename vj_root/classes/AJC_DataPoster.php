@@ -31,12 +31,8 @@
 					'2' => 'G++'
 				);
 
-			//Infomation
-			$rid = uniqid();
-			
 			//Add record
 			$ret = $this->db->value(array(
-					'id' => $rid,
 					'oid' => $_GET['id'],
 					'tid' => $id,
 					'rid' => '__',
@@ -52,7 +48,7 @@
 					'code' => (!get_magic_quotes_gpc())?addslashes($code):$code,
 					'contest' => $cid
 				))->insert("Record");
-			$_SESSION['last_id'] = $rid;	
+			$_SESSION['last_id'] = $this->db->mysql_insert_id();
 		}
 		
 		public function getData()
