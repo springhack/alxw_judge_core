@@ -50,8 +50,8 @@ def update_solution_status(solution_id, status='Waiting'):
 
 
 def update_compile_info(solution_id, result):
-    pass
-
+    sql = "update Record set `compileinfo`='%s' where `id`='%s'" % (MySQLdb.escape_string(result), solution_id)
+    run_sql(sql)
 
 def update_result(result, user):
     re_result_code = {
