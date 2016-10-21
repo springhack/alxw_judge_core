@@ -53,7 +53,7 @@ def update_compile_info(solution_id, result):
     pass
 
 
-def update_result(result):
+def update_result(result, user):
     re_result_code = {
         0:"Waiting",
         1:"Accepted",
@@ -69,6 +69,11 @@ def update_result(result):
     }
     sql = "update Record set `result`='%s',`long`='%dMS',`memory`='%dK' where `id`='%s'" % (re_result_code[result['result']], result['take_time'], result['take_memory'], result['solution_id'])
     run_sql(sql)
+    if result['result']== 1:
+        t_res = run_sql("select distinct oid from Record where `user`='%s' and result='Accepted'" % user)
+        t_res = map(lambda ptr:ptr[0], t_res)
+        run_sql("update Users set `plist`='%s' where `user`='%s'" % (' '.join(t_res), user))
+        logging.info('Solved problem list updated')
 
 
 def judge(solution_id, problem_id, data_count, time_limit,
@@ -494,7 +499,7 @@ def worker():
                 result[
                     'result']))
         dblock.acquire()
-        update_result(result)  # 将结果写入数据库
+        update_result(result, user_id)  # 将结果写入数据库
         dblock.release()
         if config.auto_clean:  # 清理work目录
             clean_work_dir(result['solution_id'])
