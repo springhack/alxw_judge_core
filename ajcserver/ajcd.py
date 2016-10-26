@@ -53,7 +53,7 @@ def update_compile_info(solution_id, result):
     sql = "update Record set `compileinfo`='%s' where `id`='%s'" % (MySQLdb.escape_string(result), solution_id)
     run_sql(sql)
 
-def update_result(result, user):
+def update_result(result, user, problem):
     re_result_code = {
         0:"Waiting",
         1:"Accepted",
@@ -74,6 +74,9 @@ def update_result(result, user):
         t_res = map(lambda ptr:ptr[0], t_res)
         run_sql("update Users set `plist`='%s' where `user`='%s'" % (' '.join(t_res), user))
         logging.info('Solved problem list updated')
+        run_sql('update AJC_Problem set accepted=accepted+1,submissions=submissions+1 where id=%s' % problem)
+    else:
+        run_sql('update AJC_Problem set submissions=submissions+1 where id=%s' % problem)
 
 
 def judge(solution_id, problem_id, data_count, time_limit,
@@ -499,7 +502,7 @@ def worker():
                 result[
                     'result']))
         dblock.acquire()
-        update_result(result, user_id)  # 将结果写入数据库
+        update_result(result, user_id, problem_id)  # 将结果写入数据库
         dblock.release()
         if config.auto_clean:  # 清理work目录
             clean_work_dir(result['solution_id'])
