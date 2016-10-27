@@ -145,7 +145,7 @@
 				</tr>
 				<tr>
 					<td>
-						sample_input
+						sample_output
 					</td>
 					<td>
 						<textarea name='sample_output' rows='10' cols='100'><?php if (isset($info)) echo $info['sample_output']; ?></textarea>
@@ -164,7 +164,7 @@
 						hint
 					</td>
 					<td>
-						<input type='text' name='hint' value='<?php if (isset($info)) echo $info['hint']; else echo 'none'; ?>' />
+						<textarea id='t_4' type='text' name='hint'><?php if (isset($info)) echo $info['hint']; else echo 'none'; ?></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -172,7 +172,7 @@
 						source
 					</td>
 					<td>
-						<input type='text' name='source' value='<?php if (isset($info)) echo $info['source']; else echo 'SpringHack' ?>' />
+						<textarea id='t_5' type='text' name='source'><?php if (isset($info)) echo $info['source']; else echo 'SpringHack' ?></textarea>
 					</td>
 				</tr>
 			</table>
@@ -181,7 +181,7 @@
 		<script language='javascript'>
 			(function (window, undefined) {
 			 
-				for (var i=1;i<=3;++i)
+				for (var i=1;i<=5;++i)
 					CKEDITOR.replace('t_' + i);
 			 
 			})(window);
