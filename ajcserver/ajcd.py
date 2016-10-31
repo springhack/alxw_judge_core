@@ -18,6 +18,12 @@ import MySQLdb
 from db import run_sql
 from Queue import Queue
 
+'''
+仅限测试使用，需根据具体系统重写!!!!
+'''
+# white_list = range(359)
+white_list = [0,1,2,3,4,5,6,9,10,11,12,21,33,45,59,85,91,122,125,158,192,197,231,243,252]
+
 
 def low_level():
     try:
@@ -85,11 +91,11 @@ def judge(solution_id, problem_id, data_count, time_limit,
     '''评测编译类型语言'''
     max_mem = 0
     max_time = 0
-    if language in ["java", 'python2', 'python3', 'ruby', 'perl']:
-        time_limit = time_limit * 2
-        mem_limit = mem_limit * 2
     time_limit = int(time_limit)
     mem_limit = int(mem_limit)
+    if language.lower() in ["java", 'python2', 'python3', 'ruby', 'perl']:
+        time_limit = time_limit * 2
+        mem_limit = mem_limit * 2
     for i in range(data_count):
         ret = judge_one_mem_time(
             solution_id,
@@ -148,8 +154,9 @@ def judge_one_mem_time(
         config.work_dir, str(solution_id), 'out%s.txt' %
         data_num)
     temp_out_data = file(output_path, 'w')
+    language = language.lower()
     if language == 'java':
-        cmd = 'java -cp %s Main' % (
+        cmd = 'java -Xms%dM -Xmx%dM -Djava.security.manager -Djava.security.policy=/home/AJC/ajcserver/java.policy -cp %s Main' % (int(mem_limit/1024), int(mem_limit/1024),
             os.path.join(config.work_dir,
                          str(solution_id)))
         main_exe = shlex.split(cmd)
@@ -185,22 +192,27 @@ def judge_one_mem_time(
         main_exe = shlex.split(cmd)
     else:
         main_exe = [os.path.join(config.work_dir, str(solution_id), 'main'), ]
-    # white_list = range(359)
-    # black_list = []
-    '''
-    仅限测试使用，需根据具体系统重写!!!!
-    '''
-    white_list = [0,1,2,3,4,5,6,9,10,11,12,21,33,45,59,85,91,122,125,158,192,197,231,243,252]
-    runcfg = {
-        'args': main_exe,
-        'fd_in': input_data.fileno(),
-        'fd_out': temp_out_data.fileno(),
-        'timelimit': time_limit,  # in MS
-        'memorylimit': mem_limit,  # in KB
-        'trace': True,
-        'calls': white_list,
-        'files': {}
-    }
+    if language == 'java':
+        runcfg = {
+            'args': main_exe,
+            'fd_in': input_data.fileno(),
+            'fd_out': temp_out_data.fileno(),
+            'timelimit': time_limit,  # in MS
+            'memorylimit': mem_limit,  # in KB
+            'java' : True
+        }
+    else:
+        runcfg = {
+            'args': main_exe,
+            'fd_in': input_data.fileno(),
+            'fd_out': temp_out_data.fileno(),
+            'timelimit': time_limit,  # in MS
+            'memorylimit': mem_limit,  # in KB
+            'java' : False,
+            'trace': True,
+            'calls': white_list,
+            'files': {}
+        }
     low_level()
     rst = lorun.run(runcfg)
     input_data.close()
@@ -308,7 +320,7 @@ def compileCode(solution_id, language):
     build_cmd = {
         "gcc": "gcc main.c -o main --static -Wall -lm -O2 -std=c99 -DONLINE_JUDGE",
         "g++": "g++ main.cpp -O2 -Wall --static -lm -DONLINE_JUDGE -o main",
-        "java": "javac Main.java",
+        "java": "javac -J-Xms32m -J-Xmx256m Main.java",
         "ruby": "reek main.rb",
         "perl": "perl -c main.pl",
         "pascal": 'fpc main.pas -O2 -Co -Ct -Ci',
