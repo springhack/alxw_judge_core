@@ -20,7 +20,7 @@
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 NAME=ajcd
 NGINX_BIN=/home/AJC/ajcserver/$NAME.py
-PID=`ps axu | grep ^nobody.*ajcd.py | awk -F ' ' '{print $2}'`
+PID=`ps axu | grep ^root.*ajcd.py$ | awk -F ' ' '{print $2}'`
 
 
 case "$1" in
@@ -37,7 +37,7 @@ case "$1" in
 
 	sleep 2
 
-	PID=`ps axu | grep ^nobody.*ajcd.py | awk -F ' ' '{print $2}'`
+    PID=`ps axu | grep ^root.*ajcd.py$ | awk -F ' ' '{print $2}'`
 
 	if [ "${PID}xx" != "xx" ];
 	then
@@ -61,7 +61,7 @@ case "$1" in
 
 	kill -9 $PID 2>&1 1>/dev/null
 
-	PID=`ps axu | grep ^nobody.*ajcd.py | awk -F ' ' '{print $2}'`
+    PID=`ps axu | grep ^root.*ajcd.py$ | awk -F ' ' '{print $2}'`
 
 	if [ "${PID}xx" != "xx" ];
 	then

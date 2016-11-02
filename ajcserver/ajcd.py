@@ -25,11 +25,19 @@ from Queue import Queue
 white_list = [0,1,2,3,4,5,6,9,10,11,12,21,33,45,59,85,91,122,125,158,192,197,231,243,252]
 
 
+
+if 0 != int(os.popen("id -u").read()):
+    logging.error("please run this program as root!")
+    sys.exit(-1)
+
 def low_level():
+    pass
+    """
     try:
         os.setuid(int(os.popen("id -u %s" % "nobody").read()))
     except:
         pass
+    """
 
 def kill_proc(p):
     try:
@@ -38,12 +46,6 @@ def kill_proc(p):
     except:
         pass
 
-try:
-    # 降低程序运行权限，防止恶意代码
-    os.setuid(int(os.popen("id -u %s" % "nobody").read()))
-except:
-    logging.error("please run this program as root!")
-    sys.exit(-1)
 # 初始化队列
 q = Queue(config.queue_size)
 # 创建数据库锁，保证一个时间只能一个程序都写数据库
