@@ -19,7 +19,7 @@ from db import run_sql
 from Queue import Queue
 
 '''
-仅限测试使用，需根据具体系统重写!!!!
+白名单仅限测试使用，需根据具体系统重写!!!!
 '''
 # white_list = range(359)
 white_list = [0,1,2,3,4,5,6,9,10,11,12,21,33,45,59,85,91,122,125,158,192,197,231,243,252]
@@ -154,6 +154,8 @@ def judge_one_mem_time(
         config.work_dir, str(solution_id), 'out%s.txt' %
         data_num)
     temp_out_data = file(output_path, 'w')
+    error_path = os.path.join(config.work_dir, str(solution_id), 'err%s.txt' % data_num)
+    temp_err_data = file(error_path, 'w')
     language = language.lower()
     if language == 'java':
         cmd = 'java -Xms%dM -Xmx%dM -Djava.security.manager -Djava.security.policy=/home/AJC/ajcserver/java.policy -cp %s Main' % (int(mem_limit/1024), int(mem_limit/1024),
@@ -197,6 +199,7 @@ def judge_one_mem_time(
             'args': main_exe,
             'fd_in': input_data.fileno(),
             'fd_out': temp_out_data.fileno(),
+            'fd_err': temp_err_data.fileno(),
             'timelimit': time_limit,  # in MS
             'memorylimit': mem_limit,  # in KB
             'java' : True
@@ -217,9 +220,26 @@ def judge_one_mem_time(
     rst = lorun.run(runcfg)
     input_data.close()
     temp_out_data.close()
+    temp_err_data.close()
+    rst['memoryused'], rst['result'] = fix_java_mis_judge(error_path, rst['result'], rst['memoryused'], mem_limit)
     logging.debug(rst)
     return rst
 
+def fix_java_mis_judge(stderr, res_now, mem_now, mem_limit):
+    err_str = ''
+    result = res_now
+    memory = mem_now
+    with open(stderr, 'r') as fp:
+        err_str = fp.read()
+        fp.close()
+    if 'Exception' in err_str:
+        result = 5
+    if 'java.lang.OutOfMemoryError' in err_str:
+        result = 3
+        memory = mem_limit + 10
+    if 'Could not create' in err_str:
+        result = 5
+    return memory, result
 
 def judge_result(problem_id, solution_id, data_num):
     low_level()
@@ -318,8 +338,8 @@ def compileCode(solution_id, language):
     language = language.lower()
     dir_work = os.path.join(config.work_dir, str(solution_id))
     build_cmd = {
-        "gcc": "gcc main.c -o main --static -Wall -lm -O2 -std=c99 -DONLINE_JUDGE",
-        "g++": "g++ main.cpp -O2 -Wall --static -lm -DONLINE_JUDGE -o main",
+        "gcc": "gcc main.c -o main -fno-asm --static -Wall -lm -std=c99 -DONLINE_JUDGE",
+        "g++": "g++ main.cpp -o main -fno-asm --static -Wall -lm -std=c++0x -DONLINE_JUDGE",
         "java": "javac -J-Xms32m -J-Xmx256m Main.java",
         "ruby": "reek main.rb",
         "perl": "perl -c main.pl",
