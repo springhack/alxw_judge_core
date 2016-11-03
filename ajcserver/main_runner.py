@@ -381,7 +381,7 @@ def compileCode(solution_id, language):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         close_fds=True)
-    timer = threading.Timer(5, kill_proc, [p])
+    timer = threading.Timer(config.compile_timeout, kill_proc, [p])
     try:
         timer.start()
         out, err = p.communicate()  # 获取编译错误信息

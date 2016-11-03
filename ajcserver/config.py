@@ -20,6 +20,8 @@ work_dir = "/home/AJC/runtime"
 data_dir = "/home/AJC/data"
 #自动清理评work目录
 auto_clean = True
+#编译超时时间
+compile_timeout = 5
 
 
 '''syscall白名单，需要根据具体系统重写!!!'''
