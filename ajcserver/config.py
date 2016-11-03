@@ -20,3 +20,7 @@ work_dir = "/home/AJC/runtime"
 data_dir = "/home/AJC/data"
 #自动清理评work目录
 auto_clean = True
+
+
+'''syscall白名单，需要根据具体系统重写!!!'''
+white_list = [0,1,2,3,4,5,6,9,10,11,12,21,33,45,59,85,91,122,125,158,192,197,231,243,252]

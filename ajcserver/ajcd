@@ -15,73 +15,113 @@
 ### END INIT INFO
 
 # Author:   SpringHack
-# website:  http://blog.90its.cn/
+# website:  http://www.dosk.win/
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 NAME=ajcd
-NGINX_BIN=/home/AJC/ajcserver/$NAME.py
+AJCD_BIN=/home/AJC/ajcserver/$NAME.py
 PID=`ps axu | grep ^root.*ajcd.py$ | awk -F ' ' '{print $2}'`
 
 
 case "$1" in
     start)
-        echo -n "Starting $NAME... "
+        echo "Starting $NAME... "
 
-	if [ "${PID}xx" != "xx" ];
-	then
-		echo "$NAME is running."
-		exit 1
-	fi
+        if [ "${PID}xx" != "xx" ];
+        then
+            echo "$NAME is running.";
+            exit 0;
+        fi
 
-        python $NGINX_BIN &
+        python $AJCD_BIN &
+        sleep 2
 
-	sleep 2
-
-    PID=`ps axu | grep ^root.*ajcd.py$ | awk -F ' ' '{print $2}'`
-
-	if [ "${PID}xx" != "xx" ];
-	then
-		echo "done"
-	else
-		echo "failed"
-		exit 1
-	fi
-        ;;
+        PID=`ps axu | grep ^root.*ajcd.py$ | awk -F ' ' '{print $2}'`
+        if [ "${PID}xx" != "xx" ];
+        then
+            echo "done";
+        else
+            echo "failed";
+            exit 1;
+        fi
+    ;;
 
     stop)
-        echo -n "Stoping $NAME... "
+        echo "Stoping $NAME... "
 
-	if [ "${PID}xx" != "xx" ];
-	then
-		sleep 0
-	else
-		echo "$NAME is not running."
-		exit 1
-	fi
+        if [ "${PID}xx" != "xx" ];
+        then
+            sleep 0;
+        else
+            echo "$NAME is not running.";
+            exit 1;
+        fi
 
-	kill -9 $PID 2>&1 1>/dev/null
+        PID=`ps axu | grep ^root.*runner.py.*sock$ | awk -F ' ' '{print $2}'`
+        if [ "${PID}xx" != "xx" ];
+        then
+            for p in $PID;
+            do
+                echo "Killing judger ${p}...";
+                kill -9 $p 1>/dev/null 2>&1;
+            done
+        fi
 
-    PID=`ps axu | grep ^root.*ajcd.py$ | awk -F ' ' '{print $2}'`
+        PID=`ps axu | grep ^root.*main_runner.py$ | awk -F ' ' '{print $2}'`
+        if [ "${PID}xx" != "xx" ];
+        then
+            for p in $PID;
+            do
+                echo "Killing producer ${i}...";
+                kill -9 $p 1>/dev/null 2>&1;
+            done
+        fi
 
-	if [ "${PID}xx" != "xx" ];
-	then
-		echo "failed"
-		exit 1
-	else
-		echo "done"
-	fi
-        ;;
+        echo 'Killing main process...'
+        kill -9 $PID 1>/dev/null2>&1
+    
+        PID=`ps axu | grep ^root.*ajcd.py$ | awk -F ' ' '{print $2}'`
+    
+        if [ "${PID}xx" != "xx" ];
+        then
+            echo "failed";
+            exit 1;
+        else
+            echo "done";
+        fi
+    ;;
 
     status)
-	if [ "${PID}xx" != "xx" ];
-	then
-		echo "$NAME (pid $PID) is running..."
-		exit 1
-	else
-		echo "$NAME is stopped"
-		exit 0
-	fi
-        ;;
+        echo "Checking infomation ..."
+        RET=0
+        if [ "${PID}xx" != "xx" ];
+        then
+            echo "$NAME (pid $PID) is running...";
+        else
+            echo "$NAME is stopped";
+            RET=1
+        fi
+        PID=`ps axu | grep ^root.*runner.py.*sock$ | awk -F ' ' '{print $2}'`
+        if [ "${PID}xx" != "xx" ];
+        then
+            for p in $PID;
+            do
+                echo "$NAME judger (pid ${p}) is running...";
+            done
+        else
+            echo "$NAME judger is stopped";
+            RET=1
+        fi
+        PID=`ps axu | grep ^root.*main_runner.py$ | awk -F ' ' '{print $2}'`
+        if [ "${PID}xx" != "xx" ];
+        then
+            echo "$NAME producer (pid $PID) is running...";
+        else
+            echo "$NAME producer is stopped";
+            RET=1
+        fi
+        exit $RET
+    ;;
 
     restart)
         $0 stop
@@ -92,6 +132,6 @@ case "$1" in
     *)
         echo "Usage: $0 {start|stop|restart|status}"
         exit 1
-        ;;
+    ;;
 
 esac
