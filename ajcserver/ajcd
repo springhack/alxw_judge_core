@@ -78,7 +78,7 @@ case "$1" in
         fi
 
         echo 'Killing main process...'
-        kill -9 $PID 1>/dev/null2>&1
+        kill -9 $PID 1>/dev/null 2>&1
     
         PID=`ps axu | grep ^root.*ajcd.py$ | awk -F ' ' '{print $2}'`
     
