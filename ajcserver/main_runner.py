@@ -86,7 +86,7 @@ def update_result(result, user, problem):
         3:"Memory Limit Exceeded",
         4:"Wrong Answer",
         5:"Runtime Error",
-        6:"Output Limit Error",
+        6:"Output Limit Exceeded",
         7:"Compile Error",
         8:"Presentation Error",
         11:"System Error",
