@@ -1,9 +1,3 @@
-<?php /**
-        Author: SpringHack - springhack@live.cn
-        Last modified: 2016-05-11 15:12:49
-        Filename: AJC_Insert.php
-        Description: Created by SpringHack using vim automatically.
-**/ ?>
 <?php
 	require_once("api.php");
 	require_once("classes/AJC_Problem.php");
@@ -38,9 +32,10 @@
 			foreach ($_POST as $k => $v)
 				$_POST[$k] = addslashes($v);
 		if ($flag)
+        {
 			$db->value($_POST)
 				->insert('AJC_Problem');
-		else
+		} else
 			$db->set($_POST)
 				->where('`id`=\''.$_POST['id'].'\'')
 				->update('AJC_Problem');
