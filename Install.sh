@@ -20,7 +20,7 @@ help()
 		echo '==> "sudo ./Install.sh install" to install'
 		echo '==> Before run you have to setup lo-runner and install python-mysqldb'
 		echo '==> Edit "Config.Daemon.php", add "AJC" at "OJ_LIST", add prefix "" as AJC prefix !!!'
-		echo '==> Browse "AJC_ProblemManagerphp" as admin to initial system !!!'
+		echo '==> Browse "AJC_ProblemManager.php" as admin to initial system !!!'
 		echo '==> Edit "/home/AJC/ajcserver/config.py" change db config !!!'
 		echo '==> "cd /home/AJC/ajcserver && ./start.sh" to run'
 }
