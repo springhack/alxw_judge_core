@@ -11,10 +11,10 @@ sys     =   __import__('sys')
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print 'No socket file !'
+        print ('No socket file !')
         sys.exit(2)
     sock = sys.argv[1]
-    print 'Daemon listen on socket %s' % sock
+    print ('Daemon listen on socket %s' % sock)
     del sys
     server = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
     if os.path.exists(sock):
@@ -27,7 +27,7 @@ if __name__ == '__main__':
     gc.collect()
     while True:
         connection, addr = server.accept()
-        print 'New task ...'
+        print ('New task ...')
         del addr
         runcfg = json.loads(connection.recv(4096))
         if 'fd_in' in runcfg:
