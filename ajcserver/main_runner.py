@@ -97,7 +97,7 @@ def update_result(result, user, problem):
     if result['result']== 1:
         t_res = run_sql("select distinct oid from Record where `user`='%s' and result='Accepted'" % user)
         t_res = map(lambda ptr:ptr[0], t_res)
-        run_sql("update Users set `plist`='%s' where `user`='%s'" % (' '.join(t_res), user))
+        run_sql("update Users set `plist`='%s',`ac`='%d' where `user`='%s'" % (' '.join(t_res), len(t_res), user))
         logging.info('Solved problem list updated')
         run_sql('update AJC_Problem set accepted=accepted+1,submissions=submissions+1 where id=%s' % problem)
     else:
