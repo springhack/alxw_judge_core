@@ -26,3 +26,44 @@ compile_timeout = 5
 
 '''syscall白名单，需要根据具体系统重写!!!'''
 white_list = [0,1,2,3,4,5,6,9,10,11,12,21,33,45,59,85,91,122,125,158,192,197,231,243,252]
+
+file_name = {
+    "gcc": "main.c",
+    "g++": "main.cpp",
+    "java": "Main.java"
+}
+
+build_cmd = {
+    "gcc": "gcc main.c -o main -fno-asm --static -Wall -lm -std=c99 -DONLINE_JUDGE",
+    "g++": "g++ main.cpp -o main -fno-asm --static -Wall -lm -std=c++0x -DONLINE_JUDGE",
+    "java": "javac -J-Xms32m -J-Xmx256m Main.java"
+}
+
+re_result_code = {
+    0: "Waiting",
+    1: "Accepted",
+    2: "Time Limit Exceeded",
+    3: "Memory Limit Exceeded",
+    4: "Wrong Answer",
+    5: "Runtime Error",
+    6: "Output Limit Exceeded",
+    7: "Compile Error",
+    8: "Presentation Error",
+    11: "System Error",
+    12: "Judging",
+}
+
+result_code = {
+    "Waiting": 0,
+    "Accepted": 1,
+    "Time Limit Exceeded": 2,
+    "Memory Limit Exceeded": 3,
+    "Wrong Answer": 4,
+    "Runtime Error": 5,
+    "Output Limit Exceeded": 6,
+    "Compile Error": 7,
+    "Presentation Error": 8,
+    "System Error": 11,
+    "Judging": 12,
+}
+
