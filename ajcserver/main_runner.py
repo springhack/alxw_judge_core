@@ -594,21 +594,6 @@ def put_code(solution_id, problem_id, pro_lang, code):
     return True
 
 
-def check_thread():
-    low_level()
-    '''检测评测程序是否存在,小于config规定数目则启动新的'''
-    while True:
-        try:
-            if threading.active_count() < config.count_thread + 2:
-                logging.info("start new thread")
-                t = threading.Thread(target=worker)
-                t.deamon = True
-                t.start()
-            time.sleep(1)
-        except:
-            pass
-
-
 def start_work_thread():
     '''开启工作线程'''
     for i in range(config.count_thread):
@@ -624,21 +609,12 @@ def start_get_task():
     t.start()
 
 
-def start_protect():
-    '''开启守护进程'''
-    low_level()
-    t = threading.Thread(target=check_thread, name="check_thread")
-    t.deamon = True
-    t.start()
-
-
 def main():
     low_level()
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s --- %(message)s',)
     start_get_task()
     start_work_thread()
-    start_protect()
 
 if __name__ == '__main__':
     main()
