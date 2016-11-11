@@ -177,13 +177,12 @@ def compileCode(solution_id, language):
     dir_work = os.path.join(config.work_dir, str(solution_id))
     if language not in config.build_cmd.keys():
         return False
-    p = subprocess.Popen(config.build_cmd[language], shell=True, cwd=dir_work, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
-    timer = threading.Timer(config.compile_timeout, kill_proc, [p])
-    try:
-        timer.start()
-        out, err = p.communicate()
-    finally:
-        timer.cancel()
+    if language == 'java':
+        flag = 1
+    else:
+        flag = 0
+    p = subprocess.Popen("/home/AJC/ajcserver/compiler %d %s" % (flag, config.build_cmd[language]), shell=True, cwd=dir_work, stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=True)
+    out, err = p.communicate()
     if p.returncode == 0:
         return True
     update_compile_info(solution_id, err + out)

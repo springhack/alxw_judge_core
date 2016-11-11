@@ -8,6 +8,7 @@ install()
 	cp -rvf ajcserver/ajcd /etc/init.d/
 	cp -rvf libs /home/AJC/
 	cp -rvf vj_root/* /var/www/html/alxwvj/
+    gcc src/compiler.c -o /home/AJC/ajcserver/compiler
 	chmod -R 777 /home/AJC
 }
 
