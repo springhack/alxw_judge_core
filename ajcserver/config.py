@@ -36,13 +36,15 @@ if '64' in platform.architecture()[0]:
 file_name = {
     "gcc": "main.c",
     "g++": "main.cpp",
-    "java": "Main.java"
+    "java": "Main.java",
+    "javascript": "main.js"
 }
 
 build_cmd = {
     "gcc": "gcc main.c -o main -fno-asm --static -Wall -lm -std=c99 -DONLINE_JUDGE",
     "g++": "g++ main.cpp -o main -fno-asm --static -Wall -lm -std=c++0x -DONLINE_JUDGE",
-    "java": "javac -J-Xms32m -J-Xmx256m Main.java -encoding UTF8"
+    "java": "javac -J-Xms32m -J-Xmx256m Main.java -encoding UTF8",
+    "javascript": "ls"
 }
 
 re_result_code = {

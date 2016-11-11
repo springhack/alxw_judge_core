@@ -8,6 +8,7 @@ install()
 	cp -rvf ajcserver/ajcd /etc/init.d/
 	cp -rvf libs /home/AJC/
 	cp -rvf vj_root/* /var/www/html/alxwvj/
+    cp -rvf src/runner.js /home/AJC/ajcserver/
     gcc src/compiler.c -o /home/AJC/ajcserver/compiler
     git clone https://github.com/springhack/alxw_judge_core_src
     cd alxw_judge_core_src

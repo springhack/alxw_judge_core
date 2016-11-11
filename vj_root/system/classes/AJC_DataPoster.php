@@ -29,7 +29,8 @@
 			$this->language_table = array(
 					'1' => 'GCC',
 					'2' => 'G++',
-                    '3' => 'Java'
+                    '3' => 'Java',
+                    '4' => 'JavaScript'
 				);
 
 			//Add record

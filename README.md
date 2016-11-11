@@ -1,5 +1,7 @@
 # alxwvj_judge_core
 
+# JavaScript support is just a test !!!
+
 AJC (Alxwvj judge core) module for Alxwvj
 
 Create by SpringHack
