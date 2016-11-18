@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 #coding=utf-8
+
+import platform
+
 #开启评测线程数目
 count_thread = 4
 #评测程序队列容量
@@ -20,12 +23,14 @@ work_dir = "/home/AJC/runtime"
 data_dir = "/home/AJC/data"
 #自动清理评work目录
 auto_clean = True
-#编译超时时间
-compile_timeout = 5
 
 
 '''syscall白名单，需要根据具体系统重写!!!'''
-white_list = [0,1,2,3,4,5,6,9,10,11,12,21,33,45,59,85,91,122,125,158,192,197,231,243,252]
+if '32' in platform.architecture()[0]:
+    white_list = [3, 4, 5, 6, 8, 11, 13, 33, 45, 85, 91, 122, 125, 140, 192, 197, 243, 252]
+if '64' in platform.architecture()[0]:
+    white_list = [0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 21, 59, 63, 89, 158, 201, 205, 231, 240, 252]
+
 
 file_name = {
     "gcc": "main.c",
