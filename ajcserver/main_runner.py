@@ -91,11 +91,11 @@ def judge(solution_id, problem_id, data_count, time_limit, mem_limit, program_in
         if ret['result'] == 5:
             program_info['result'] = config.result_code["Runtime Error"]
             return program_info
-        elif ret['result'] == 2:
+        elif ret['result'] == 2 or ret['timeused'] > time_limit:
             program_info['result'] = config.result_code["Time Limit Exceeded"]
-            program_info['take_time'] = time_limit + 10
+            program_info['take_time'] = time_limit
             return program_info
-        elif ret['result'] == 3:
+        elif ret['result'] == 3 or ret['memoryused'] > mem_limit:
             program_info['result'] = config.result_code["Memory Limit Exceeded"]
             program_info['take_memory'] = mem_limit
             return program_info
