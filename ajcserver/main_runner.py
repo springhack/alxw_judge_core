@@ -156,7 +156,8 @@ def judge_one_mem_time(solution_id, problem_id, data_num, time_limit, mem_limit,
             'files': {}
         }
     rst = SendAndTest(sock, runcfg)
-    rst['memoryused'], rst['result'] = fix_java_mis_judge(error_path, rst['result'], rst['memoryused'], mem_limit)
+    if language == 'java':
+        rst['memoryused'], rst['result'] = fix_java_mis_judge(error_path, rst['result'], rst['memoryused'], mem_limit)
     logging.debug(rst)
     return rst
 
