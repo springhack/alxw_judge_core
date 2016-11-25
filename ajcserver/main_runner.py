@@ -162,6 +162,7 @@ def judge_one_mem_time(solution_id, problem_id, data_num, time_limit, mem_limit,
     return rst
 
 def SendAndTest(sock, runcfg):
+    runcfg['args'] = ' '.join(runcfg['args'])
     try:
         client = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         client.connect(sock)

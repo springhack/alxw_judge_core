@@ -9,7 +9,7 @@ import config
 for i in range(config.count_thread):
     pid = os.fork()
     if pid == 0:
-        os.execl('/usr/bin/python', 'python', '/home/AJC/ajcserver/runner.py', '/home/AJC/runtime/%d.sock' % i)
+        os.execl('/home/AJC/ajcserver/runner', 'runner', '/home/AJC/runtime/%d.sock' % i)
         break
 
 

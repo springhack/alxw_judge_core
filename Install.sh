@@ -9,6 +9,11 @@ install()
 	cp -rvf libs /home/AJC/
 	cp -rvf vj_root/* /var/www/html/alxwvj/
     gcc src/compiler.c -o /home/AJC/ajcserver/compiler
+    git clone https://github.com/springhack/alxw_judge_core_src
+    cd alxw_judge_core_src
+    make
+    cp runner /home/AJC/ajcserver
+    cd ..
 	chmod -R 777 /home/AJC
 }
 

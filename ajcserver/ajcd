@@ -57,7 +57,7 @@ case "$1" in
             exit 1;
         fi
 
-        PID=`ps axu | grep ^root.*runner.py.*sock$ | awk -F ' ' '{print $2}'`
+        PID=`ps axu | grep ^root.*runner.*sock$ | awk -F ' ' '{print $2}'`
         if [ "${PID}xx" != "xx" ];
         then
             for p in $PID;
