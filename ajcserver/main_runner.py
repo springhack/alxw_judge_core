@@ -123,7 +123,7 @@ def judge(solution_id, problem_id, data_count, time_limit, mem_limit, program_in
 def judge_one_mem_time(solution_id, problem_id, data_num, time_limit, mem_limit, language, sock):
     language = language.lower()
     if language == 'java':
-        cmd = '/usr/bin/java -Xms%dM -Xmx%dM -Djava.security.manager -Djava.security.policy=/home/AJC/ajcserver/java.policy -cp %s Main' % (int(mem_limit/1024), int(mem_limit/1024), os.path.join(config.work_dir, str(solution_id)))
+        cmd = '/usr/bin/java -cp %s -Xss1M -XX:MaxPermSize=16M -XX:PermSize=8M -Xms16M -Xmx%dk -Djava.security.manager -Djava.security.policy==/home/AJC/ajcserver/java.policy -Djava.awt.headless=true Main' % (os.path.join(config.work_dir, str(solution_id)), int(mem_limit))
         main_exe = shlex.split(cmd)
     else:
         main_exe = [os.path.join(config.work_dir, str(solution_id), 'main'), ]
@@ -150,10 +150,10 @@ def judge_one_mem_time(solution_id, problem_id, data_num, time_limit, mem_limit,
             'fd_err': error_path,
             'timelimit': time_limit,
             'memorylimit': mem_limit,
-            'java' : False,
-            'trace': True,
-            'calls': config.white_list,
-            'files': {}
+            'java' : False#,
+#            'trace': True,
+#            'calls': config.white_list,
+#            'files': {}
         }
     rst = SendAndTest(sock, runcfg)
     if language == 'java':

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #coding=utf-8
 
-import platform
+#import platform
 
 #开启评测线程数目
 count_thread = 4
@@ -25,11 +25,12 @@ data_dir = "/home/AJC/data"
 auto_clean = True
 
 
-'''syscall白名单，需要根据具体系统重写!!!'''
+'''syscall白名单，需要根据具体系统重写!!!
 if '32' in platform.architecture()[0]:
     white_list = [3, 4, 5, 6, 8, 11, 13, 33, 45, 85, 91, 122, 125, 140, 192, 197, 243, 252]
 if '64' in platform.architecture()[0]:
     white_list = [0, 1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 21, 59, 63, 89, 158, 201, 205, 231, 240, 252]
+'''
 
 
 file_name = {
@@ -41,7 +42,7 @@ file_name = {
 build_cmd = {
     "gcc": "gcc main.c -o main -fno-asm --static -Wall -lm -std=c99 -DONLINE_JUDGE",
     "g++": "g++ main.cpp -o main -fno-asm --static -Wall -lm -std=c++0x -DONLINE_JUDGE",
-    "java": "javac -J-Xms32m -J-Xmx256m Main.java"
+    "java": "javac -J-Xms32m -J-Xmx256m Main.java -encoding UTF8"
 }
 
 re_result_code = {
