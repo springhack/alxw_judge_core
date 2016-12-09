@@ -38,6 +38,7 @@
 					'tid' => $id,
 					'rid' => '__',
 					'user' => $_SESSION['user'],
+					'nick' => $_SESSION['nick'],
 					'time' => time(),
 					'memory' => 'N/A',
 					'long' => 'N/A',
