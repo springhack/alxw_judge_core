@@ -54,6 +54,13 @@ def kill_proc(p):
     except:
         pass
 
+'''异常处理相关'''
+def commit_socket_error(sock):
+    print 'Socket %s error' % sock
+    pid = os.fork()
+    if pid == 0:
+        os.execl('/home/AJC/ajcserver/runner', 'runner', sock)
+
 '''任务执行相关'''
 def run(problem_id, solution_id, language, data_count, user_id, sock):
     time_limit, mem_limit = get_problem_limit(problem_id)
@@ -90,6 +97,11 @@ def judge(solution_id, problem_id, data_count, time_limit, mem_limit, program_in
             continue
         if ret['result'] == 5:
             program_info['result'] = config.result_code["Runtime Error"]
+            return program_info
+        elif ret['result'] == 11:
+            program_info['result'] = config.result_code["System Error"]
+            program_info['take_time'] = 0
+            program_info['take_memory'] = 0
             return program_info
         elif ret['result'] == 2 or ret['timeused'] > time_limit:
             program_info['result'] = config.result_code["Time Limit Exceeded"]
@@ -170,8 +182,8 @@ def SendAndTest(sock, runcfg):
         ret = json.loads(client.recv(1024))
         client.close()
     except:
-        return {'result':11, 'memoryused':0,'timeused':0}
         commit_socket_error(sock)
+        return {'result':11, 'memoryused':0,'timeused':0}
     return ret
 
 def compileCode(solution_id, language):
@@ -232,7 +244,6 @@ def judge_result(problem_id, solution_id, data_num):
 def update_solution_status(solution_id, status='Waiting'):
     sql = "update Record set `rid`='%s',`result`='Waiting' where `id`='%s'" % (solution_id, solution_id)
     run_sql(sql)
-
 
 def update_compile_info(solution_id, result):
     sql = "update Record set `compileinfo`='%s' where `id`='%s'" % (MySQLdb.escape_string(result), solution_id)
